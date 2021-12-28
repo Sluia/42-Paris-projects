@@ -41,7 +41,7 @@ int only_digit(char *str)
 void set_pars_values(t_data *info, int nb, int i)
 {
 	if (i == 1)
-		info->nb_philo = nb;
+		info->nb_philos = nb;
 	if (i == 2)
 		info->time_die = nb;
 	if (i == 3)
@@ -54,7 +54,7 @@ void set_pars_values(t_data *info, int nb, int i)
 
 int valid_values(t_data *info)
 {
-	if (info->nb_philo < 2 || !info->time_die || !info->must_eat_nb)
+	if (info->nb_philos < 2 || !info->time_die || !info->must_eat_nb)
 		return (0);
 	return (1);
 }

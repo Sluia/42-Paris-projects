@@ -9,7 +9,7 @@ t_node *new_node(int id)
 		return (NULL);
 	new_node->id = id;
 	new_node->time_last_meal = 0;
-	new_node->nb_meals = 0;
+	new_node->meals_eaten = 0;
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -36,7 +36,7 @@ t_node *get_node_wpos(t_node *philos, int pos)
 	int i;
 
 	i = 0;
-	while (i < pos)
+	while (i < pos - 1)
 	{
 		philos = philos->next;
 		i++;

@@ -50,7 +50,9 @@ int main(int argc, char **argv)
 		{
 			// launch philo
 			if (init_loop(&info))
-				loop_philo(&info);
+			{
+				//loop_philo(&info);
+			}
 			// free all pointers
 		}
 	}

@@ -4,7 +4,7 @@ void init_pars(t_data *info)
 {
 	info->philos = NULL;
 	info->time_ms = -1;
-	info->nb_philo = -1;
+	info->nb_philos = -1;
 	info->time_die = -1;
 	info->time_eat = -1;
 	info->time_sleep = -1;
@@ -18,7 +18,7 @@ int init_loop(t_data *info)
 	int i;
 
 	i = 0;
-	while (i < info->nb_philo)
+	while (i < info->nb_philos)
 	{
 		new_philo = new_node(i + 1);
 		if (!new_philo)

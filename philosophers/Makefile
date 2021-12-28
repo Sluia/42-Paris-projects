@@ -1,7 +1,7 @@
 NAME = philo
 
 SRC = src/init.c \
-	src/loop.c \
+	src/list.c \
 	src/parsing.c \
 	src/philosophers.c \
 	src/utils.c

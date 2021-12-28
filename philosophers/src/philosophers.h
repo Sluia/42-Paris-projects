@@ -17,7 +17,7 @@ typedef struct s_node
 	pthread_t th;
 	int id;
 	int time_last_meal;
-	int nb_meals;
+	int meals_eaten;
 	struct s_node *next;
 } t_node;
 
@@ -34,6 +34,13 @@ typedef struct s_data
 } t_data;
 
 void init_pars(t_data *info);
+int init_loop(t_data *info);
+
+t_node *new_node(int id);
+void add_node_front(t_node **philos, t_node *new);
+void add_node_back(t_node **philos, t_node *new);
+t_node *get_node_wpos(t_node *philos, int pos);
+int get_list_length(t_node *philos);
 
 int parsing(t_data *info, int argc, char **argv);
 int only_digit(char *str);

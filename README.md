@@ -7,7 +7,7 @@ This repository contains all my projects from 42 Paris.
 |    Project    | Description |      Date      |   Mark  |
 |:-------------:|:-----------:|:--------------:|:-------:|
 |     libft     |             |  November 2020 | 125/125 |
-| get_next_line |             |  November 2020 | 107/125 |
+| get_next_line |             |  November 2020 | 107/115 |
 |   ft_printf   |             |  December 2020 | 100/100 |
 |    so_long    |             |    July 2021   | 100/100 |
 |     pipex     |             |   August 2021  | 100/100 |

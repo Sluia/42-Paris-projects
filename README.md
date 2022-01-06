@@ -4,13 +4,13 @@ This repository contains all my projects from 42 Paris.
 
 ## List of projects
 
-|    Project    | Description |      Date     |   Mark  |
-|:-------------:|:-----------:|:-------------:|:-------:|
-|     libft     |             | November 2021 | 125/125 |
-| get_next_line |             | November 2021 |         |
-|   ft_printf   |             | December 2021 |         |
-|    so_long    |             |               |         |
-|     pipex     |             |               |         |
-|   push_swap   |             |               |         |
-|   minishell   |             |               |         |
-|  philosophers |             |               |         |
+|    Project    | Description |      Date      |   Mark  |
+|:-------------:|:-----------:|:--------------:|:-------:|
+|     libft     |             |  November 2020 | 125/125 |
+| get_next_line |             |  November 2020 | 107/125 |
+|   ft_printf   |             |  December 2020 | 100/100 |
+|    so_long    |             |    July 2021   | 100/100 |
+|     pipex     |             |   August 2021  | 100/100 |
+|   push_swap   |             | September 2021 |  86/100 |
+|   minishell   |             |  November 2021 | 100/100 |
+|  philosophers |             |                |         |

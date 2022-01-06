@@ -2,16 +2,17 @@
 
 void init_pars(t_data *info)
 {
+	info->time_elapsed = 0;
 	info->philos = NULL;
-	info->time_ms = -1;
-	info->nb_philos = -1;
-	info->time_die = -1;
-	info->time_eat = -1;
-	info->time_sleep = -1;
+	info->close_status = 0;
+	info->nb_philos = 0;
+	info->time_die = 0;
+	info->time_eat = 0;
+	info->time_sleep = 0;
 	info->must_eat_nb = -1;
 }
 
-int init_loop(t_data *info)
+int init_philos(t_data *info)
 {
 	t_node *new_philo;
 	t_node *last_philo;
@@ -20,7 +21,7 @@ int init_loop(t_data *info)
 	i = 0;
 	while (i < info->nb_philos)
 	{
-		new_philo = new_node(i + 1);
+		new_philo = new_node(i + 1, info);
 		if (!new_philo)
 			return (0);
 		add_node_back(&info->philos, new_philo);

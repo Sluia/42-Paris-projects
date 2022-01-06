@@ -1,14 +1,28 @@
 #include "philosophers.h"
 
-void *get_time(void *pars)
+void *update_time(void *th_arg)
 {
-	struct timeval start;
-	struct timeval end;
+	t_data *info;
+	suseconds_t start_time;
 
-	gettimeofday(&start, NULL);
-	while (1) // changer avec flag pour exit programme si 1 philo = mort
+	info = (t_data *)th_arg;
+	gettimeofday(&info->time, NULL);
+	start_time = (info->time.tv_sec * 1000000) + info->time.tv_usec;
+	while (!info->close_status)
 	{
-		gettimeofday(&end, NULL);
-		((t_data *)pars)->time_ms = ((end.tv_sec - start.tv_sec) * 1000) + (end.tv_usec / 1000);
+		gettimeofday(&info->time, NULL);
+		info->time_elapsed =
+			((info->time.tv_sec * 1000000) + info->time.tv_usec) - start_time;
+		usleep(10);
 	}
+	return (NULL);
 }
+
+/*void ft_usleep(t_data *info, suseconds_t ms_to_wait)
+{
+	suseconds_t past_time;
+
+	past_time = info->time_now * 1000;
+	while ((info->time_now * 1000) - past_time < ms_to_wait)
+		usleep(1000);
+}*/

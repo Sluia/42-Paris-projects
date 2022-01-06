@@ -8,7 +8,7 @@
 	
 	args:
 		- numbers of philosophers
-		- time to die = if doesn't start eating => dead
+		- time to die = if doesn't start eating after starting last meal => dead
 		- time to eat => time required to eat, they keep their 2 forks
 		- time to sleep => time required to sleep
 		- [ nb of time each philo must eat ] = optional
@@ -16,12 +16,16 @@
 	
 	simulation stops when a philosopher dies
 	
+	microseconds < milliseconds < seconds
+		1000000 < 1000 < 1
 	1000000 microseconds = 1 second
-	1000 microseconds = 1 millisecond
+		1000 microseconds = 1 millisecond
 	1000 milliseconds = 1 second
-		usleep = microseconds
-		tv_usec = microseconds
-			display time with milliseconds for philosophers
+
+	usleep = microseconds
+	tv_sec = seconds
+	tv_usec = microseconds
+		display time with milliseconds for philosophers
 	
 	color text depending of the action [?]
 
@@ -48,10 +52,9 @@ int main(int argc, char **argv)
 		init_pars(&info);
 		if (parsing(&info, argc, argv))
 		{
-			// launch philo
-			if (init_loop(&info))
+			if (init_philos(&info))
 			{
-				//loop_philo(&info);
+				loop_philo(&info);
 			}
 			// free all pointers
 		}

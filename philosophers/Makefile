@@ -2,8 +2,10 @@ NAME = philo
 
 SRC = src/init.c \
 	src/list.c \
+	src/loop.c \
 	src/parsing.c \
 	src/philosophers.c \
+	src/time.c \
 	src/utils.c
 
 OBJ = ${SRC:.c=.o}

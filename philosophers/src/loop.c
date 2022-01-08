@@ -5,14 +5,14 @@ void loop_philo(t_data *info)
 	int i;
 
 	i = 0;
+	gettimeofday(&info->time, NULL);
 	pthread_create(&info->th_time, NULL, update_time, (void *)info);
-	usleep(10);
 	while (i < info->nb_philos)
 	{
 		pthread_create(&info->philos->th_philo, NULL, routine_philo, (void *)info->philos);
 		info->philos = info->philos->next;
 		i++;
-		usleep(10000);
+		usleep(100);
 	}
 	i = 0;
 	while (i < info->nb_philos)
@@ -54,3 +54,29 @@ void *routine_philo(void *th_arg)
 	}
 	return (1);
 }*/
+
+int write_event(t_data *info, int id_event, int id_philo)
+{
+	char *str;
+
+	if (id_event == 1)
+		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+			ft_itoa(id_philo), " has taken a fork");
+	if (id_event == 2)
+		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+			ft_itoa(id_philo), " is eating");
+	if (id_event == 3)
+		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+			ft_itoa(id_philo), " is sleeping");
+	if (id_event == 4)
+		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+			ft_itoa(id_philo), " is thinking");
+	if (id_event == 5)
+		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+			ft_itoa(id_philo), " died");
+	if (!str)
+		return (1);
+	ft_wrstr_nl(1, str);
+	free(str);
+	return (0);
+}

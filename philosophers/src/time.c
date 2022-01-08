@@ -6,9 +6,8 @@ void *update_time(void *th_arg)
 	suseconds_t start_time;
 
 	info = (t_data *)th_arg;
-	gettimeofday(&info->time, NULL);
 	start_time = (info->time.tv_sec * 1000000) + info->time.tv_usec;
-	while (!info->close_status)
+	while (1)
 	{
 		gettimeofday(&info->time, NULL);
 		info->time_elapsed =

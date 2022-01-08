@@ -4,11 +4,7 @@ void init_pars(t_data *info)
 {
 	info->time_elapsed = 0;
 	info->philos = NULL;
-	info->close_status = 0;
-	info->nb_philos = 0;
-	info->time_die = 0;
-	info->time_eat = 0;
-	info->time_sleep = 0;
+	//info->close_status = 0;
 	info->must_eat_nb = -1;
 }
 

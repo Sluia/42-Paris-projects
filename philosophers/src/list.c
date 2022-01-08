@@ -8,9 +8,6 @@ t_node *new_node(int id, t_data *info)
 	if (!new_node)
 		return (NULL);
 	new_node->id = id;
-	new_node->time_last_meal = 0;
-	new_node->meals_eaten = 0;
-	new_node->death_status = 0;
 	new_node->st_data = (void *)info;
 	new_node->next = NULL;
 	return (new_node);

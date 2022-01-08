@@ -1,5 +1,7 @@
 #include "../include/philosophers.h"
 
+// add itoa
+
 long ft_atoi(const char *str)
 {
 	long result;
@@ -76,4 +78,26 @@ int ft_strcmp(char *str1, char *str2)
 			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 	}
 	return (0);
+}
+
+void ft_wrstr_nl(int fd, char *str)
+{
+	write(fd, str, ft_strlen(str));
+	write(fd, "\n", 1);
+}
+
+char *ft_strjoin_philo(char *str1, char *str2, char *str3, char *str4)
+{
+	char *join;
+	int length;
+
+	length = ft_strlen(str1) + ft_strlen(str2) +
+		ft_strlen(str3) + ft_strlen(str4);
+	join = ft_strdup(str1, length);
+	if (!join)
+		return (NULL);
+	join = ft_strcat(join, str2);
+	join = ft_strcat(join, str3);
+	join = ft_strcat(join, str4);
+	return (join);
 }

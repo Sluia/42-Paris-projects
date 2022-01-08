@@ -29,8 +29,8 @@ typedef struct s_data
 	struct timeval time;
 	suseconds_t time_elapsed;
 	t_node *philos;
-	pthread_t th_deaths;
-	int close_status;
+	//pthread_t th_deaths;
+	//int close_status;
 	int nb_philos;
 	int time_die;
 	int time_eat;
@@ -49,6 +49,7 @@ int get_list_length(t_node *philos);
 
 void loop_philo(t_data *info);
 void *routine_philo(void *th_arg);
+int write_event(t_data *info, int id_event, int id_philo);
 
 int parsing(t_data *info, int argc, char **argv);
 int only_digit(char *str);
@@ -63,5 +64,7 @@ int ft_strlen(const char *str);
 void *ft_calloc(int nb_elem, int size);
 void *ft_memset(void *ptr, int c, int n);
 int ft_strcmp(char *str1, char *str2);
+void ft_wrstr_nl(int fd, char *str);
+char *ft_strjoin_philo(char *str1, char *str2, char *str3, char *str4);
 
 #endif

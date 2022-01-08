@@ -32,7 +32,9 @@ void *routine_philo(void *th_arg)
 	philo = (t_node *)th_arg;
 	info = (t_data *)philo->st_data;
 	philo->time_last_meal = info->time_elapsed;
-	printf("id = %d - last_meal = %ld\n", philo->id, philo->time_last_meal);
+	philo->meals_eaten = 0;
+	philo->death_status = 0;
+	write_event(info, 1, philo->id);
 	return (NULL);
 }
 

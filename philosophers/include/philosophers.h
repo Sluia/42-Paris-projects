@@ -59,6 +59,8 @@ int valid_values(t_data *info);
 void *update_time(void *th_arg);
 
 long ft_atoi(const char *str);
+char *ft_itoa(long nb);
+int get_nb_length(long nb, int base_length);
 int ft_isdigit(int c);
 int ft_strlen(const char *str);
 void *ft_calloc(int nb_elem, int size);

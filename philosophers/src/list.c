@@ -1,4 +1,4 @@
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 t_node *new_node(int id, t_data *info)
 {

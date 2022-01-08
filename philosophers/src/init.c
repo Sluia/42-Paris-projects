@@ -1,4 +1,4 @@
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 void init_pars(t_data *info)
 {

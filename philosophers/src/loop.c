@@ -1,4 +1,4 @@
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 void loop_philo(t_data *info)
 {

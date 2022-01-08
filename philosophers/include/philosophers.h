@@ -66,5 +66,8 @@ void *ft_memset(void *ptr, int c, int n);
 int ft_strcmp(char *str1, char *str2);
 void ft_wrstr_nl(int fd, char *str);
 char *ft_strjoin_philo(char *str1, char *str2, char *str3, char *str4);
+char *ft_strdup(char *str, int length);
+char *ft_strcpy(char *dest, char *src);
+char *ft_strcat(char *dest, char *src);
 
 #endif

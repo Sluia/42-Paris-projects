@@ -33,48 +33,38 @@ void *routine_philo(void *th_arg)
 	info = (t_data *)philo->st_data;
 	philo->time_last_meal = info->time_elapsed;
 	philo->meals_eaten = 0;
-	philo->death_status = 0;
-	write_event(info, 1, philo->id);
+	write_event(info->time_elapsed, 1, philo->id);
+	while (!info->death_status)
+	{
+		if (philo->time_last_meal + info->time_die <= info->time_elapsed)
+		{
+			info->death_status = philo->id;
+		}
+		usleep(10);
+	}
+	if (info->death_status == philo->id)
+		write_event(info->time_elapsed, 5, philo->id);
 	return (NULL);
 }
 
-/*void *check_deaths(void *th_arg)
-{
-	t_data *info;
-	int i;
-
-	info = (t_data *)th_arg;
-	while (1)
-	{
-		i = 0;
-		while (i < info->nb_philos)
-		{
-			//if (info->philos->time_last_meal + info->time_die <= info->time_now)
-			//	return (0);
-			i++;
-		}
-	}
-	return (1);
-}*/
-
-int write_event(t_data *info, int id_event, int id_philo)
+int write_event(suseconds_t time_elapsed, int id_event, int id_philo)
 {
 	char *str;
 
 	if (id_event == 1)
-		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+		str = ft_strjoin_philo(ft_itoa(time_elapsed), ": ",
 			ft_itoa(id_philo), " has taken a fork");
 	if (id_event == 2)
-		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+		str = ft_strjoin_philo(ft_itoa(time_elapsed), ": ",
 			ft_itoa(id_philo), " is eating");
 	if (id_event == 3)
-		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+		str = ft_strjoin_philo(ft_itoa(time_elapsed), ": ",
 			ft_itoa(id_philo), " is sleeping");
 	if (id_event == 4)
-		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+		str = ft_strjoin_philo(ft_itoa(time_elapsed), ": ",
 			ft_itoa(id_philo), " is thinking");
 	if (id_event == 5)
-		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+		str = ft_strjoin_philo(ft_itoa(time_elapsed), ": ",
 			ft_itoa(id_philo), " died");
 	if (!str)
 		return (1);

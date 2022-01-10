@@ -6,12 +6,12 @@ void *update_time(void *th_arg)
 	suseconds_t start_time;
 
 	info = (t_data *)th_arg;
-	start_time = (info->time.tv_sec * 1000000) + info->time.tv_usec;
+	start_time = (info->time.tv_sec * 1000) + (info->time.tv_usec / 1000);
 	while (1)
 	{
 		gettimeofday(&info->time, NULL);
-		info->time_elapsed =
-			((info->time.tv_sec * 1000000) + info->time.tv_usec) - start_time;
+		info->time_elapsed = ((info->time.tv_sec * 1000)
+			+ (info->time.tv_usec / 1000)) - start_time;
 		usleep(10);
 	}
 	return (NULL);

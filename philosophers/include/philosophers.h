@@ -18,7 +18,6 @@ typedef struct s_node
 	int id;
 	suseconds_t time_last_meal;
 	int meals_eaten;
-	int death_status;
 	void *st_data;
 	struct s_node *next;
 } t_node;
@@ -30,7 +29,7 @@ typedef struct s_data
 	suseconds_t time_elapsed;
 	t_node *philos;
 	//pthread_t th_deaths;
-	//int close_status;
+	int death_status;
 	int nb_philos;
 	int time_die;
 	int time_eat;
@@ -49,7 +48,7 @@ int get_list_length(t_node *philos);
 
 void loop_philo(t_data *info);
 void *routine_philo(void *th_arg);
-int write_event(t_data *info, int id_event, int id_philo);
+int write_event(suseconds_t time_elapsed, int id_event, int id_philo);
 
 int parsing(t_data *info, int argc, char **argv);
 int only_digit(char *str);

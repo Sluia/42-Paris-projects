@@ -11,6 +11,7 @@ int parsing(t_data *info, int argc, char **argv)
 		if (argv[i] && only_digit(argv[i]))
 		{
 			result_atoi = ft_atoi(argv[i]);
+			// free each result_atoi
 			if (result_atoi > 2147483647 || result_atoi < -2147483648)
 				return (0);
 			set_pars_values(info, result_atoi, i);

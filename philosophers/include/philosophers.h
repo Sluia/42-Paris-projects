@@ -51,8 +51,7 @@ int get_list_length(t_node *philos);
 
 void loop_philo(t_data *info);
 void *routine_philo(void *th_arg);
-void try_eating(t_data *info, int philo_id);
-int pick_fork(t_data *info, int fork_id, int philo_id);
+void try_eating(t_data *info, t_node *philo);
 void *check_deaths(void *th_arg);
 int write_event(suseconds_t time_elapsed, int id_event, int id_philo);
 

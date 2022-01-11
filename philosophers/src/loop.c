@@ -40,55 +40,36 @@ void *routine_philo(void *th_arg)
 	info = (t_data *)philo->st_data;
 	philo->time_last_meal = info->time_elapsed;
 	philo->meals_eaten = 0;
+	if (philo->id % 2)
+			usleep(1000);
 	while (!info->death_status)
 	{
-		if (philo->id % 2)
-			usleep(1000);
-		try_eating(info, philo->id);
-		break;
+		try_eating(info, philo);
+		usleep(1000);
 	}
 	return (NULL);
 }
 
-void try_eating(t_data *info, int philo_id)
+void try_eating(t_data *info, t_node *philo)
 {
 	int left_fork;
 	int right_fork;
 
-	left_fork = pick_fork(info, philo_id - 1, philo_id);
-	if (philo_id == info->nb_philos)
-		right_fork = pick_fork(info, 0, philo_id);
+	left_fork = philo->id - 1;
+	if (philo->id == info->nb_philos)
+		right_fork = 0;
 	else
-		right_fork = pick_fork(info, philo_id, philo_id);
-	if (left_fork && right_fork)
-	{
-		write_event(info->time_elapsed, 2, philo_id);
-		usleep(info->time_eat * 1000);
-	}
+		right_fork = philo->id;
+	pthread_mutex_lock(&info->mutex_forks[left_fork]);
+	write_event(info->time_elapsed, 1, philo->id);
+	pthread_mutex_lock(&info->mutex_forks[right_fork]);
+	write_event(info->time_elapsed, 1, philo->id);
+	write_event(info->time_elapsed, 2, philo->id);
+	philo->time_last_meal = info->time_elapsed;
+	usleep(info->time_eat * 1000);
+	pthread_mutex_unlock(&info->mutex_forks[right_fork]);
+	pthread_mutex_unlock(&info->mutex_forks[left_fork]);
 }
-
-int pick_fork(t_data *info, int fork_id, int philo_id)
-{
-	pthread_mutex_lock(&info->mutex_forks[fork_id]);
-	while (info->fork_status[fork_id])
-	{
-		if (info->death_status)
-			return (0);
-		usleep(10);
-	}
-	info->fork_status[fork_id] = 1;
-	write_event(info->time_elapsed, 1, philo_id);
-	pthread_mutex_unlock(&info->mutex_forks[fork_id]);
-	return (1);
-}
-
-/*void drop_fork(t_data *info, int fork_id)
-{
-	pthread_mutex_lock(&info->mutex_forks[fork_id]);
-	if (!info->death_status && !info->fork_status[fork_id])
-		info->fork_status[fork_id] = 0;
-	pthread_mutex_unlock(&info->mutex_forks[fork_id]);
-}*/
 
 void *check_deaths(void *th_arg)
 {

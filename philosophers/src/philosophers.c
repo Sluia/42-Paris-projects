@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 	
 	if (argc == 5 || argc == 6)
 	{
-		init_pars(&info);
+		init_pars(&info); // rename ?
 		if (parsing(&info, argc, argv))
 		{
 			if (init_philos(&info))

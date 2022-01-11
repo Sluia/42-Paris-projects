@@ -25,10 +25,13 @@ typedef struct s_node
 typedef struct s_data
 {
 	pthread_t th_time;
+	//pthread_mutex_t mutex_time;
+	pthread_t th_death_status;
 	struct timeval time;
 	suseconds_t time_elapsed;
 	t_node *philos;
-	//pthread_t th_deaths;
+	pthread_mutex_t *mutex_forks;
+	int *fork_status;
 	int death_status;
 	int nb_philos;
 	int time_die;
@@ -48,6 +51,9 @@ int get_list_length(t_node *philos);
 
 void loop_philo(t_data *info);
 void *routine_philo(void *th_arg);
+void try_eating(t_data *info, int philo_id);
+int pick_fork(t_data *info, int fork_id, int philo_id);
+void *check_deaths(void *th_arg);
 int write_event(suseconds_t time_elapsed, int id_event, int id_philo);
 
 int parsing(t_data *info, int argc, char **argv);

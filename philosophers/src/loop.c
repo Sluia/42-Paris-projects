@@ -3,11 +3,21 @@
 void loop_philo(t_data *info)
 {
 	int i;
+	int j;
 
 	info->mutex_forks = ft_calloc(info->nb_philos, sizeof(pthread_mutex_t));
 	// return if error
-	info->fork_status = ft_calloc(info->nb_philos, sizeof(int));
-	// return if error
+
+	// init mutex:
+	j = 0;
+	while (j < info->nb_philos)
+	{
+		pthread_mutex_init(&info->mutex_forks[j], NULL);
+		j++;
+	}
+
+	pthread_mutex_init(&info->mutex_write, NULL);
+
 	i = 0;
 	gettimeofday(&info->time, NULL);
 	pthread_create(&info->th_time, NULL, update_time, (void *)info);
@@ -45,7 +55,9 @@ void *routine_philo(void *th_arg)
 	while (!info->death_status)
 	{
 		try_eating(info, philo);
-		usleep(1000);
+		write_event(info, 3, philo->id);
+		usleep(info->time_sleep * 1000);
+		write_event(info, 4, philo->id);
 	}
 	return (NULL);
 }
@@ -61,14 +73,16 @@ void try_eating(t_data *info, t_node *philo)
 	else
 		right_fork = philo->id;
 	pthread_mutex_lock(&info->mutex_forks[left_fork]);
-	write_event(info->time_elapsed, 1, philo->id);
+	write_event(info, 1, philo->id);
 	pthread_mutex_lock(&info->mutex_forks[right_fork]);
-	write_event(info->time_elapsed, 1, philo->id);
-	write_event(info->time_elapsed, 2, philo->id);
+	write_event(info, 1, philo->id);
+	write_event(info, 2, philo->id);
 	philo->time_last_meal = info->time_elapsed;
 	usleep(info->time_eat * 1000);
 	pthread_mutex_unlock(&info->mutex_forks[right_fork]);
 	pthread_mutex_unlock(&info->mutex_forks[left_fork]);
+	// take care of case when philos have to eat x nb of times
+	// philo->meals_eaten++;
 }
 
 void *check_deaths(void *th_arg)
@@ -82,8 +96,8 @@ void *check_deaths(void *th_arg)
 	{
 		if (temp_philos->time_last_meal + info->time_die <= info->time_elapsed)
 		{
+			write_event(info, 5, temp_philos->id);
 			info->death_status = 1;
-			write_event(info->time_elapsed, 5, temp_philos->id);
 		}
 		usleep(10);
 		temp_philos = temp_philos->next;
@@ -91,28 +105,31 @@ void *check_deaths(void *th_arg)
 	return (NULL);
 }
 
-int write_event(suseconds_t time_elapsed, int id_event, int id_philo)
+int write_event(t_data *info, int id_event, int id_philo)
 {
 	char *str;
 
 	if (id_event == 1)
-		str = ft_strjoin_philo(ft_itoa(time_elapsed), ": ",
-			ft_itoa(id_philo), " has taken a fork");
+		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+			ft_itoa(id_philo), WHITE " has taken a fork" STOP);
 	if (id_event == 2)
-		str = ft_strjoin_philo(ft_itoa(time_elapsed), ": ",
-			ft_itoa(id_philo), " is eating");
+		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+			ft_itoa(id_philo), YELLOW " is eating" STOP);
 	if (id_event == 3)
-		str = ft_strjoin_philo(ft_itoa(time_elapsed), ": ",
-			ft_itoa(id_philo), " is sleeping");
+		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+			ft_itoa(id_philo), GREEN " is sleeping" STOP);
 	if (id_event == 4)
-		str = ft_strjoin_philo(ft_itoa(time_elapsed), ": ",
-			ft_itoa(id_philo), " is thinking");
+		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+			ft_itoa(id_philo), BLUE " is thinking" STOP);
 	if (id_event == 5)
-		str = ft_strjoin_philo(ft_itoa(time_elapsed), ": ",
-			ft_itoa(id_philo), " died");
+		str = ft_strjoin_philo(ft_itoa(info->time_elapsed), ": ",
+			ft_itoa(id_philo), RED " died" STOP);
 	if (!str)
 		return (1);
-	ft_wrstr_nl(1, str);
+	pthread_mutex_lock(&info->mutex_write);
+	if (!info->death_status)
+		ft_wrstr_nl(1, str);
+	pthread_mutex_unlock(&info->mutex_write);
 	free(str);
 	return (0);
 }

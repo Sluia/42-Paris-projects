@@ -9,6 +9,13 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+# define RED "\x1B[31m"
+# define GREEN "\x1B[32m"
+# define YELLOW "\x1B[33m"
+# define BLUE "\x1B[34m"
+# define WHITE "\x1B[37m"
+# define STOP "\x1B[0m"
+
 // how to compile with threads:
 // => gcc <args> <program> -lpthread
 
@@ -31,13 +38,13 @@ typedef struct s_data
 	suseconds_t time_elapsed;
 	t_node *philos;
 	pthread_mutex_t *mutex_forks;
-	int *fork_status;
 	int death_status;
 	int nb_philos;
 	int time_die;
 	int time_eat;
 	int time_sleep;
 	int must_eat_nb;
+	pthread_mutex_t mutex_write;
 } t_data;
 
 void init_pars(t_data *info);
@@ -53,7 +60,7 @@ void loop_philo(t_data *info);
 void *routine_philo(void *th_arg);
 void try_eating(t_data *info, t_node *philo);
 void *check_deaths(void *th_arg);
-int write_event(suseconds_t time_elapsed, int id_event, int id_philo);
+int write_event(t_data *info, int id_event, int id_philo);
 
 int parsing(t_data *info, int argc, char **argv);
 int only_digit(char *str);

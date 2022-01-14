@@ -7,7 +7,7 @@ void *update_time(void *th_arg)
 
 	info = (t_data *)th_arg;
 	start_time = (info->time.tv_sec * 1000) + (info->time.tv_usec / 1000);
-	while (!info->death_status)
+	while (!info->death_status && info->nb_philos == info->nb_done_eating)
 	{
 		gettimeofday(&info->time, NULL);
 		info->time_elapsed = ((info->time.tv_sec * 1000)

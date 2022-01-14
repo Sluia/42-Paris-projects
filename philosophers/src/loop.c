@@ -26,7 +26,7 @@ void loop_philo(t_data *info)
 		pthread_create(&info->philos->th_philo, NULL, routine_philo, (void *)info->philos);
 		info->philos = info->philos->next;
 		i++;
-		usleep(10);
+		usleep(100);
 	}
 	pthread_create(&info->th_death_status, NULL, check_deaths, (void *)info);
 	i = 0;
@@ -51,14 +51,18 @@ void *routine_philo(void *th_arg)
 	philo->time_last_meal = info->time_elapsed;
 	philo->meals_eaten = 0;
 	if (philo->id % 2)
-			usleep(1000);
+			usleep(2000);
 	while (!info->death_status)
 	{
 		try_eating(info, philo);
+		if (info->must_eat_nb == philo->meals_eaten)
+			break ;
 		write_event(info, 3, philo->id);
 		usleep(info->time_sleep * 1000);
 		write_event(info, 4, philo->id);
 	}
+	// protect with mutex
+	info->nb_done_eating++;
 	return (NULL);
 }
 
@@ -68,10 +72,7 @@ void try_eating(t_data *info, t_node *philo)
 	int right_fork;
 
 	left_fork = philo->id - 1;
-	if (philo->id == info->nb_philos)
-		right_fork = 0;
-	else
-		right_fork = philo->id;
+	right_fork = philo->id % info->nb_philos;
 	pthread_mutex_lock(&info->mutex_forks[left_fork]);
 	write_event(info, 1, philo->id);
 	pthread_mutex_lock(&info->mutex_forks[right_fork]);
@@ -81,8 +82,7 @@ void try_eating(t_data *info, t_node *philo)
 	usleep(info->time_eat * 1000);
 	pthread_mutex_unlock(&info->mutex_forks[right_fork]);
 	pthread_mutex_unlock(&info->mutex_forks[left_fork]);
-	// take care of case when philos have to eat x nb of times
-	// philo->meals_eaten++;
+	philo->meals_eaten++;
 }
 
 void *check_deaths(void *th_arg)
@@ -92,7 +92,7 @@ void *check_deaths(void *th_arg)
 
 	info = (t_data *)th_arg;
 	temp_philos = info->philos;
-	while (!info->death_status)
+	while (!info->death_status && info->nb_philos == info->nb_done_eating)
 	{
 		if (temp_philos->time_last_meal + info->time_die <= info->time_elapsed)
 		{

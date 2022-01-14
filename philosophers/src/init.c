@@ -6,6 +6,7 @@ void init_pars(t_data *info)
 	info->philos = NULL;
 	info->death_status = 0;
 	info->must_eat_nb = -1;
+	info->nb_done_eating = 0;
 }
 
 int init_philos(t_data *info)

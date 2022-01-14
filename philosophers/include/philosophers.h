@@ -32,7 +32,6 @@ typedef struct s_node
 typedef struct s_data
 {
 	pthread_t th_time;
-	//pthread_mutex_t mutex_time;
 	pthread_t th_death_status;
 	struct timeval time;
 	suseconds_t time_elapsed;
@@ -44,6 +43,7 @@ typedef struct s_data
 	int time_eat;
 	int time_sleep;
 	int must_eat_nb;
+	int nb_done_eating;
 	pthread_mutex_t mutex_write;
 } t_data;
 

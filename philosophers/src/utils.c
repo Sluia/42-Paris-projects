@@ -1,25 +1,19 @@
 #include "../include/philosophers.h"
 
-// add itoa
-
 long ft_atoi(const char *str)
 {
 	long result;
-	int sign;
 	int i;
 
 	result = 0;
-	sign = 1;
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '-')
-			sign = -1;
 		if (ft_isdigit(str[i]))
 			result = result * 10 + str[i] - 48;
 		i++;
 	}
-	return (sign * result);
+	return (result);
 }
 
 char *ft_itoa(long nb)

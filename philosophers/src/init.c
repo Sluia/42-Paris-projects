@@ -1,9 +1,9 @@
 #include "../include/philosophers.h"
 
-void init_pars(t_data *info)
+void init_info(t_data *info)
 {
-	info->time_elapsed = 0;
 	info->philos = NULL;
+	info->mutex_forks = NULL;
 	info->death_status = 0;
 	info->must_eat_nb = -1;
 	info->nb_done_eating = 0;
@@ -12,7 +12,6 @@ void init_pars(t_data *info)
 int init_philos(t_data *info)
 {
 	t_node *new_philo;
-	t_node *last_philo;
 	int i;
 
 	i = 0;
@@ -24,7 +23,5 @@ int init_philos(t_data *info)
 		add_node_back(&info->philos, new_philo);
 		i++;
 	}
-	last_philo = get_node_wpos(info->philos, get_list_length(info->philos));
-	last_philo->next = info->philos;
 	return (1);
 }

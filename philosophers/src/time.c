@@ -1,27 +1,19 @@
 #include "../include/philosophers.h"
 
-void *update_time(void *th_arg)
+suseconds_t get_elapsed_time(t_data *info)
 {
-	t_data *info;
-	suseconds_t start_time;
-
-	info = (t_data *)th_arg;
-	start_time = (info->time.tv_sec * 1000) + (info->time.tv_usec / 1000);
-	while (!info->death_status && info->nb_philos == info->nb_done_eating)
-	{
-		gettimeofday(&info->time, NULL);
-		info->time_elapsed = ((info->time.tv_sec * 1000)
-			+ (info->time.tv_usec / 1000)) - start_time;
-		usleep(10);
-	}
-	return (NULL);
+	gettimeofday(&info->time, NULL);
+	return ((info->time.tv_sec * 1000) + 
+		(info->time.tv_usec / 1000) - info->start_time);
 }
 
-/*void ft_usleep(t_data *info, suseconds_t ms_to_wait)
+void ft_usleep(suseconds_t duration, t_data *info)
 {
-	suseconds_t past_time;
+	suseconds_t start;
+	suseconds_t end;
 
-	past_time = info->time_now * 1000;
-	while ((info->time_now * 1000) - past_time < ms_to_wait)
-		usleep(1000);
-}*/
+	start = get_elapsed_time(info);
+	end = start + duration;
+	while (get_elapsed_time(info) < end)
+		usleep(100);
+}

@@ -1,6 +1,7 @@
 NAME = philo
 
-SRC = src/init.c \
+SRC = src/free.c \
+	src/init.c \
 	src/list.c \
 	src/loop.c \
 	src/parsing.c \

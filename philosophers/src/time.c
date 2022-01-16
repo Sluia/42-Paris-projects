@@ -15,5 +15,5 @@ void ft_usleep(suseconds_t duration, t_data *info)
 	start = get_elapsed_time(info);
 	end = start + duration;
 	while (get_elapsed_time(info) < end)
-		usleep(100);
+		usleep(10);
 }

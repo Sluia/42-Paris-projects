@@ -1,13 +1,18 @@
 NAME = philo
 
-SRC = src/free.c \
+SRC = src/deaths.c \
+	src/free.c \
 	src/init.c \
 	src/list.c \
 	src/loop.c \
+	src/mutex.c \
+	src/output.c \
 	src/parsing.c \
 	src/philosophers.c \
 	src/time.c \
-	src/utils.c
+	src/utils_1.c \
+	src/utils_2.c \
+	src/utils_3.c
 
 OBJ = ${SRC:.c=.o}
 

@@ -59,7 +59,6 @@ void launch_philo_threads(t_node *philos, int even)
 					routine_philo, (void *)philos);
 		philos = philos->next;
 		usleep(10);
-		// ft_usleep(1, (t_data *)philos->st_data);
 	}
 }
 
@@ -70,7 +69,6 @@ void close_philo_threads(t_node *philos)
 		pthread_join(philos->th_philo, NULL);
 		philos = philos->next;
 		usleep(10);
-		// ft_usleep(1, (t_data *)philos->st_data);
 	}
 }
 
@@ -81,17 +79,17 @@ void *routine_philo(void *th_arg)
 
 	philo = (t_node *)th_arg;
 	info = (t_data *)philo->info;
-	philo->time_last_meal = get_elapsed_time(info);
-	philo->meals_eaten = 0;
 	while (!info->death_status)
 	{
-		try_eating(info, philo);
-		if (info->must_eat_nb == philo->meals_eaten)
-			break ;
-		write_event(info, 3, philo->id);
-		// usleep(info->time_sleep * 1000);
-		ft_usleep(info->time_sleep, info);
-		write_event(info, 4, philo->id);
+		if (info->nb_philos > 1)
+		{
+			try_eating(info, philo);
+			if (info->must_eat_nb == philo->meals_eaten)
+				break ;
+			write_event(info, 3, philo->id);
+			ft_usleep(info->time_sleep, info);
+			write_event(info, 4, philo->id);
+		}
 	}
 	// protect with mutex
 	info->nb_done_eating++;
@@ -111,7 +109,6 @@ void try_eating(t_data *info, t_node *philo)
 	write_event(info, 1, philo->id);
 	write_event(info, 2, philo->id);
 	philo->time_last_meal = get_elapsed_time(info);
-	// usleep(info->time_eat * 1000);
 	ft_usleep(info->time_eat, info);
 	pthread_mutex_unlock(&info->mutex_forks[right_fork]);
 	pthread_mutex_unlock(&info->mutex_forks[left_fork]);
@@ -132,7 +129,6 @@ void *check_deaths(void *th_arg)
 			write_event(info, 5, temp_philos->id);
 			info->death_status = 1;
 		}
-		// usleep(10);
 		ft_usleep(1, info);
 		temp_philos = temp_philos->next;
 		if (!temp_philos)
@@ -144,28 +140,31 @@ void *check_deaths(void *th_arg)
 int write_event(t_data *info, int id_event, int id_philo)
 {
 	char *str;
+	char *itoa_time;
+	char *itoa_id;
 
+	itoa_time = ft_itoa(get_elapsed_time(info));
+	itoa_id = ft_itoa(id_philo);
+	if (!itoa_time || !itoa_id)
+		return (0);
 	if (id_event == 1)
-		str = ft_strjoin_philo(ft_itoa(get_elapsed_time(info)), ": ",
-			ft_itoa(id_philo), WHITE " has taken a fork" STOP);
+		str = ft_strjoin_philo(itoa_time, ": ", itoa_id, " has taken a fork");
 	if (id_event == 2)
-		str = ft_strjoin_philo(ft_itoa(get_elapsed_time(info)), ": ",
-			ft_itoa(id_philo), YELLOW " is eating" STOP);
+		str = ft_strjoin_philo(itoa_time, ": ", itoa_id, " is eating");
 	if (id_event == 3)
-		str = ft_strjoin_philo(ft_itoa(get_elapsed_time(info)), ": ",
-			ft_itoa(id_philo), GREEN " is sleeping" STOP);
+		str = ft_strjoin_philo(itoa_time, ": ", itoa_id, " is sleeping");
 	if (id_event == 4)
-		str = ft_strjoin_philo(ft_itoa(get_elapsed_time(info)), ": ",
-			ft_itoa(id_philo), BLUE " is thinking" STOP);
+		str = ft_strjoin_philo(itoa_time, ": ", itoa_id, " is thinking");
 	if (id_event == 5)
-		str = ft_strjoin_philo(ft_itoa(get_elapsed_time(info)), ": ",
-			ft_itoa(id_philo), RED " died" STOP);
+		str = ft_strjoin_philo(itoa_time, ": ", itoa_id, " died");
+	free(itoa_time);
+	free(itoa_id);
 	if (!str)
-		return (1);
+		return (0);
 	pthread_mutex_lock(&info->mutex_write);
 	if (!info->death_status)
 		ft_wrstr_nl(1, str);
 	pthread_mutex_unlock(&info->mutex_write);
 	free(str);
-	return (0);
+	return (1);
 }

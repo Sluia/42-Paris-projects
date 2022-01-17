@@ -61,6 +61,7 @@ void init_mutex(t_data *info);
 void destroy_mutex(t_data *info);
 
 int write_event(t_data *info, int id_event, int id_philo);
+char *get_str_event(int id_event, char *itoa_time, char *itoa_id);
 
 int parsing(t_data *info, int argc, char **argv);
 int only_digit(char *str);

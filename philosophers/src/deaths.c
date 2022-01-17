@@ -9,7 +9,8 @@ void *check_deaths(void *th_arg)
 	temp_philos = info->philos;
 	while (!info->death_status && info->nb_philos != info->nb_done_eating)
 	{
-		if (temp_philos->time_last_meal + info->time_die <= get_elapsed_time(info))
+		if (temp_philos->time_last_meal + info->time_die
+			<= get_elapsed_time(info))
 		{
 			write_event(info, 5, temp_philos->id);
 			info->death_status = 1;

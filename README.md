@@ -13,4 +13,4 @@ This repository contains all my projects from 42 Paris.
 |     pipex     |             |   August 2021  | 100/100 |
 |   push_swap   |             | September 2021 |  86/100 |
 |   minishell   |             |  November 2021 | 100/100 |
-|  philosophers |             |                |         |
+|  philosophers |             |  January 2022  | 100/100 |

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 12:00:02 by qduarte           #+#    #+#             */
+/*   Updated: 2022/01/18 12:00:54 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philosophers.h"
 
-int parsing(t_data *info, int argc, char **argv)
+int	parsing(t_data *info, int argc, char **argv)
 {
-	long result_atoi;
-	int i;
+	long	result_atoi;
+	int		i;
 
 	i = 1;
 	while (i < argc)
@@ -24,9 +36,9 @@ int parsing(t_data *info, int argc, char **argv)
 	return (0);
 }
 
-int only_digit(char *str)
+int	only_digit(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -38,7 +50,7 @@ int only_digit(char *str)
 	return (1);
 }
 
-void set_info_values(t_data *info, int nb, int i)
+void	set_info_values(t_data *info, int nb, int i)
 {
 	if (i == 1)
 		info->nb_philos = nb;
@@ -52,7 +64,7 @@ void set_info_values(t_data *info, int nb, int i)
 		info->must_eat_nb = nb;
 }
 
-int valid_values(t_data *info)
+int	valid_values(t_data *info)
 {
 	if (info->nb_philos < 1 || !info->time_die || !info->must_eat_nb)
 		return (0);

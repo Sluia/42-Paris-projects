@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 12:04:44 by qduarte           #+#    #+#             */
+/*   Updated: 2022/01/18 12:05:17 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philosophers.h"
 
-int ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -10,9 +22,9 @@ int ft_strlen(const char *str)
 	return (i);
 }
 
-int ft_strcmp(char *str1, char *str2)
+int	ft_strcmp(char *str1, char *str2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str1[i] || str2[i])
@@ -25,9 +37,9 @@ int ft_strcmp(char *str1, char *str2)
 	return (0);
 }
 
-char *ft_strdup(char *str, int length)
+char	*ft_strdup(char *str, int length)
 {
-	char *dup;
+	char	*dup;
 
 	dup = ft_calloc(length + 1, sizeof(char));
 	if (!dup)
@@ -36,9 +48,9 @@ char *ft_strdup(char *str, int length)
 	return (dup);
 }
 
-char *ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i])
@@ -50,10 +62,10 @@ char *ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-char *ft_strcat(char *dest, char *src)
+char	*ft_strcat(char *dest, char *src)
 {
-	int dest_length;
-	int i;
+	int	dest_length;
+	int	i;
 
 	dest_length = ft_strlen(dest);
 	i = 0;

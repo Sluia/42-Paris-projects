@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 11:55:55 by qduarte           #+#    #+#             */
+/*   Updated: 2022/01/18 12:06:40 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philosophers.h"
 
-void init_info(t_data *info)
+void	init_info(t_data *info)
 {
 	info->philos = NULL;
 	info->mutex_forks = NULL;
@@ -9,10 +21,10 @@ void init_info(t_data *info)
 	info->nb_done_eating = 0;
 }
 
-int init_philos(t_data *info)
+int	init_philos(t_data *info)
 {
-	t_node *new_philo;
-	int i;
+	t_node	*new_philo;
+	int		i;
 
 	i = 0;
 	while (i < info->nb_philos)

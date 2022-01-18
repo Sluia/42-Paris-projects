@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loop.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 12:02:31 by qduarte           #+#    #+#             */
+/*   Updated: 2022/01/18 12:03:00 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philosophers.h"
 
-int loop_philo(t_data *info)
+int	loop_philo(t_data *info)
 {
 	info->mutex_forks = ft_calloc(info->nb_philos, sizeof(pthread_mutex_t));
 	if (!info->mutex_forks)
@@ -18,7 +30,7 @@ int loop_philo(t_data *info)
 	return (1);
 }
 
-void launch_philo_threads(t_node *philos, int even)
+void	launch_philo_threads(t_node *philos, int even)
 {
 	while (philos)
 	{
@@ -37,7 +49,7 @@ void launch_philo_threads(t_node *philos, int even)
 	}
 }
 
-void close_philo_threads(t_node *philos)
+void	close_philo_threads(t_node *philos)
 {
 	while (philos)
 	{
@@ -47,10 +59,10 @@ void close_philo_threads(t_node *philos)
 	}
 }
 
-void *routine_philo(void *th_arg)
+void	*routine_philo(void *th_arg)
 {
-	t_node *philo;
-	t_data *info;
+	t_node	*philo;
+	t_data	*info;
 
 	philo = (t_node *)th_arg;
 	info = (t_data *)philo->info;
@@ -72,10 +84,10 @@ void *routine_philo(void *th_arg)
 	return (NULL);
 }
 
-void try_eating(t_data *info, t_node *philo)
+void	try_eating(t_data *info, t_node *philo)
 {
-	int left_fork;
-	int right_fork;
+	int	left_fork;
+	int	right_fork;
 
 	left_fork = philo->id - 1;
 	right_fork = philo->id % info->nb_philos;

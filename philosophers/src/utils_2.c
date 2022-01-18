@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 12:05:32 by qduarte           #+#    #+#             */
+/*   Updated: 2022/01/18 12:06:20 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philosophers.h"
 
-int ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-void *ft_calloc(int nb_elem, int size)
+void	*ft_calloc(int nb_elem, int size)
 {
-	void *mem_zone;
+	void	*mem_zone;
 
 	mem_zone = malloc(nb_elem * size);
 	if (mem_zone == NULL)
@@ -18,10 +30,10 @@ void *ft_calloc(int nb_elem, int size)
 	return (mem_zone);
 }
 
-void *ft_memset(void *ptr, int c, int n)
+void	*ft_memset(void *ptr, int c, int n)
 {
-	unsigned char *ptr_c;
-	int i;
+	unsigned char	*ptr_c;
+	int				i;
 
 	ptr_c = (unsigned char *)ptr;
 	i = 0;
@@ -33,19 +45,19 @@ void *ft_memset(void *ptr, int c, int n)
 	return (ptr);
 }
 
-void ft_wrstr_nl(int fd, char *str)
+void	ft_wrstr_nl(int fd, char *str)
 {
 	write(fd, str, ft_strlen(str));
 	write(fd, "\n", 1);
 }
 
-char *ft_strjoin_philo(char *str1, char *str2, char *str3, char *str4)
+char	*ft_strjoin_philo(char *str1, char *str2, char *str3, char *str4)
 {
-	char *join;
-	int length;
+	char	*join;
+	int		length;
 
-	length = ft_strlen(str1) + ft_strlen(str2) +
-		ft_strlen(str3) + ft_strlen(str4);
+	length = ft_strlen(str1) + ft_strlen(str2)
+		+ ft_strlen(str3) + ft_strlen(str4);
 	join = ft_strdup(str1, length);
 	if (!join)
 		return (NULL);

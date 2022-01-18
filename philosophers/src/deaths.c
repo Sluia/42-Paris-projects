@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   deaths.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 11:55:06 by qduarte           #+#    #+#             */
+/*   Updated: 2022/01/18 11:55:19 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philosophers.h"
 
-void *check_deaths(void *th_arg)
+void	*check_deaths(void *th_arg)
 {
-	t_data *info;
-	t_node *temp_philos;
+	t_data	*info;
+	t_node	*temp_philos;
 
 	info = (t_data *)th_arg;
 	temp_philos = info->philos;

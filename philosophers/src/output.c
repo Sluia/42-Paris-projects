@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   output.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 11:57:30 by qduarte           #+#    #+#             */
+/*   Updated: 2022/01/18 12:03:42 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philosophers.h"
 
-int write_event(t_data *info, int id_event, int id_philo)
+int	write_event(t_data *info, int id_event, int id_philo)
 {
-	char *str;
-	char *itoa_time;
-	char *itoa_id;
+	char	*str;
+	char	*itoa_time;
+	char	*itoa_id;
 
 	itoa_time = ft_itoa(get_elapsed_time(info));
 	itoa_id = ft_itoa(id_philo);
@@ -23,9 +35,9 @@ int write_event(t_data *info, int id_event, int id_philo)
 	return (1);
 }
 
-char *get_str_event(int id_event, char *itoa_time, char *itoa_id)
+char	*get_str_event(int id_event, char *itoa_time, char *itoa_id)
 {
-	char *str;
+	char	*str;
 
 	if (id_event == 1)
 		str = ft_strjoin_philo(itoa_time, ": ", itoa_id, " has taken a fork");

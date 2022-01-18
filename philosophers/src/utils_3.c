@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 12:01:47 by qduarte           #+#    #+#             */
+/*   Updated: 2022/01/18 12:02:12 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philosophers.h"
 
-long ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	long result;
-	int i;
+	long	result;
+	int		i;
 
 	result = 0;
 	i = 0;
@@ -16,10 +28,10 @@ long ft_atoi(const char *str)
 	return (result);
 }
 
-char *ft_itoa(long nb)
+char	*ft_itoa(long nb)
 {
-	char *itoa;
-	int length;
+	char	*itoa;
+	int		length;
 
 	length = get_nb_length(nb, 10);
 	itoa = ft_calloc(length + 1, sizeof(char));
@@ -36,9 +48,9 @@ char *ft_itoa(long nb)
 	return (itoa);
 }
 
-int get_nb_length(long nb, int base_length)
+int	get_nb_length(long nb, int base_length)
 {
-	int length;
+	int	length;
 
 	length = 1;
 	while (nb >= base_length)
